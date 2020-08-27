@@ -29,6 +29,7 @@ namespace EmployeeManagementApp.Models
             employeeToEdit.Surname = employee.Surname;
             employeeToEdit.Address = employee.Address;
             employeeToEdit.ContactNumber = employee.ContactNumber;
+            employeeToEdit.Department = employee.Department;
             employeeToEdit.Qualification = employee.Qualification;
             return employee;
         }

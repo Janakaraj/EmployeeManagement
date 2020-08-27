@@ -2,14 +2,14 @@
 using System.Linq;
 namespace EmployeeManagementApp.Models
 {
-    internal class DepartmentList
+    public class DepartmentList
     {
-        static List<Department> departmentList = null;
+        public static List<Department> departmentList = null;
         static DepartmentList()
         {
             departmentList = new List<Department>()
             {
-                new Department(){DepartmentId=0,DepartmentName="HR"}
+                new Department(){DepartmentId=0,DepartmentName="Development"}
         };
         }
         public static List<Department> GetDepartments()
