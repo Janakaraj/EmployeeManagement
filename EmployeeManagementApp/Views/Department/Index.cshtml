@@ -1,0 +1,41 @@
+﻿@model IEnumerable<EmployeeManagementApp.Models.Department>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 style="margin-top: 1rem; margin-bottom: 1rem;">Department List</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-warning">Add New Department</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DepartmentId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepartmentName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartmentId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartmentName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.DepartmentId }) |
+                @Html.ActionLink("Details", "Details", new { id=item.DepartmentId }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.DepartmentId })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
