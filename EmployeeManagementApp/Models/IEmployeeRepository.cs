@@ -10,7 +10,7 @@ namespace EmployeeManagementApp.Models
         List<Employee> GetEmployees();
         Employee GetEmployeeById(int id);
         Employee AddEmployee(Employee employee);
-        Employee DeleteEmployee(int id);
+        void DeleteEmployee(int id);
         Employee EditEmployee(int id, Employee employee);
     }
 }

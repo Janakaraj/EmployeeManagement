@@ -23,9 +23,9 @@ namespace EmployeeManagementApp.Models
         {
             return DepartmentList.EditInList(dId, department);
         }
-        public Department DeleteDepartment(int dId)
+        public void DeleteDepartment(int dId)
         {
-            return DepartmentList.DeleteInList(dId);
+           DepartmentList.DeleteInList(dId);
         }
     }
 }
