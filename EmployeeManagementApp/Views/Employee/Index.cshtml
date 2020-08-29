@@ -31,7 +31,10 @@
                 @Html.DisplayNameFor(model => model.ContactNumber)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Department)
+                @Html.DisplayNameFor(model => model.department.DepartmentId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.department.DepartmentName)
             </th>
             <th></th>
         </tr>
@@ -39,34 +42,37 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Surname)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Address)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Qualification)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ContactNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Department)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Surname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Qualification)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContactNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.department.DepartmentId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.department.DepartmentName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
         }
         @*<input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index" class="btn btn-warning">Back to List</a>*@

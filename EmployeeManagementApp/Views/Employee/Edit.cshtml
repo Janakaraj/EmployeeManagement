@@ -43,8 +43,8 @@
                 <span asp-validation-for="ContactNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
-                @Html.LabelFor(m => m.Department, "Department", new { @class = "control-label" })
-                @Html.DropDownListFor(m => m.Department, new SelectList(DepartmentList.GetDepartments().Where(mo => mo.DepartmentName != null).Select(m => m.DepartmentName).ToList()), "Select Department", new { @class = "form-control" })
+                @Html.LabelFor(m => m.DepartmentId, "Department", new { @class = "control-label" })
+                @Html.DropDownListFor(m => m.DepartmentId, new SelectList(DepartmentList.GetDepartments().Where(mo => mo.DepartmentName != null).Select(m => m).ToList(), "DepartmentId", "DepartmentName"), "Select Department", new { @class = "form-control" })
             </div>
             @*<div class="form-group">
                 <label asp-for="Department" class="control-label"></label>
