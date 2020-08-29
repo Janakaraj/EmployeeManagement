@@ -32,7 +32,7 @@ namespace EmployeeManagementApp.Models
                 employee.Surname = reader[2].ToString();
                 employee.Address = reader[3].ToString();
                 employee.Qualification = reader[4].ToString();
-                employee.ContactNumber = Convert.ToInt32(reader[5]);
+                employee.ContactNumber = long.Parse(Convert.ToString(reader[5]));
                 employee.Department = reader[6].ToString();
                 employeeList.Add(employee);
             }
