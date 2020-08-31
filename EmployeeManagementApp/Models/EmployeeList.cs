@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Data.SqlClient;
 using System;
-
 namespace EmployeeManagementApp.Models
 {
     public class EmployeeList
@@ -12,7 +11,6 @@ namespace EmployeeManagementApp.Models
         static EmployeeList()
         {
             string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=EmployeeManagementDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-            Department department = new Department();
             employeeList = new List<Employee>();
             con = new SqlConnection(connectionString);
         }
@@ -38,11 +36,27 @@ namespace EmployeeManagementApp.Models
                 employeeList.Add(employee);
             }
             con.Close();
+            //var employees = con.Query<EmployeeDataList>("select * from dbo.Employee inner join  dbo.Department on Employee.DepartmentId = Department.DepartmentId");
+            //foreach (var emp in employees)
+            //{
+            //    Employee employee = new Employee();
+            //    employee.Id = Convert.ToInt32(emp.Id);
+            //    employee.Name = emp.Name.ToString();
+            //    employee.Surname = emp.Surname.ToString();
+            //    employee.Address = emp.Address.ToString();
+            //    employee.Qualification = emp.Qualification.ToString();
+            //    employee.ContactNumber = long.Parse(Convert.ToString(emp.ContactNumber));
+            //    employee.DepartmentId = Convert.ToInt32(emp.DepartmentId);
+            //    employee.department = new Department();
+            //    employee.department.DepartmentId = Convert.ToInt32(emp.DepartmentId);
+            //    employee.department.DepartmentName = emp.DepartmentName.ToString();
+            //    employeeList.Add(employee);
+            //}
             return employeeList;
         }
         public static Employee AddToList(Employee employee)
         {
-            //employeeList.Add(employee);
+            employeeList.Add(employee);
             con.Open();
             string query = "INSERT INTO dbo.Employee(Name, Surname, Address, Qualification, ContactNumber, DepartmentId) VALUES(@Name, @Surname, @Address, @Quali, @Cn, @Dept)";
             SqlCommand cmd = new SqlCommand(query, con);
@@ -54,6 +68,13 @@ namespace EmployeeManagementApp.Models
             cmd.Parameters.AddWithValue("@Dept", employee.DepartmentId);
             cmd.ExecuteNonQuery();
             con.Close();
+            //var name = employee.Name;
+            //var surname = employee.Surname;
+            //var address = employee.Address;
+            //var quali = employee.Qualification;
+            //var cn = employee.ContactNumber;
+            //var DId = employee.DepartmentId;
+            //con.Execute("INSERT INTO dbo.Employee(Name, Surname, Address, Qualification, ContactNumber, DepartmentId) VALUES(name, surname, address, quali, cn, DId)");
             return employee;
         }
         public static Employee EditInList(int id, Employee employee)

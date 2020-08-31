@@ -122,5 +122,6 @@ C:\Users\ADMIN\source\repos\EmployeeManagementApp\EmployeeManagementApp\bin\Debu
 C:\Users\ADMIN\source\repos\EmployeeManagementApp\EmployeeManagementApp\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
 C:\Users\ADMIN\source\repos\EmployeeManagementApp\EmployeeManagementApp\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\ADMIN\source\repos\EmployeeManagementApp\EmployeeManagementApp\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\ADMIN\source\repos\EmployeeManagementApp\EmployeeManagementApp\bin\Debug\netcoreapp3.1\Dapper.dll
 C:\Users\ADMIN\source\repos\EmployeeManagementApp\EmployeeManagementApp\obj\Debug\netcoreapp3.1\EmployeeManagementApp.csproj.CoreCompileInputs.cache
 C:\Users\ADMIN\source\repos\EmployeeManagementApp\EmployeeManagementApp\obj\Debug\netcoreapp3.1\EmployeeManagementApp.MvcApplicationPartsAssemblyInfo.cache
