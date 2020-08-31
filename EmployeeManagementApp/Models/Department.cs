@@ -13,7 +13,5 @@ namespace EmployeeManagementApp.Models
         [StringLength(20, ErrorMessage = "Name must be between 1 and 100 chars")]
         [Required]
         public string DepartmentName { get; set; }
-
-        //public IList<Employee> Employees { get; set; }
     }
 }
