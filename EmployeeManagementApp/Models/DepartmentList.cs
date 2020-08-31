@@ -47,11 +47,21 @@ namespace EmployeeManagementApp.Models
 
             return department;
         }
-        public static void DeleteInList(int id)
+        public static bool DeleteInList(int id)
         {
             departmentList.Clear();
-            string query = "DELETE FROM dbo.Department WHERE DepartmentId = " + id;
-            con.Execute(query);
+            List<Employee> l = EmployeeList.GetEmployees().Where(e => e.DepartmentId == id).ToList();
+            if (!l.Any())
+            {
+                string query = "DELETE FROM dbo.Department WHERE DepartmentId = " + id;
+                con.Execute(query);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
         }
     }
 }
