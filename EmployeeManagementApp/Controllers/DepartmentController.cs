@@ -39,8 +39,8 @@ namespace EmployeeManagementApp.Controllers
         {
             try
             {
-                //var d = deptRepo.GetDepartments().Last();
-                //collection.DepartmentId = d.DepartmentId+1;
+                var d = deptRepo.GetDepartments().Last();
+                collection.DepartmentId = d.DepartmentId+1;
                 deptRepo.AddDepartment(collection);
                 return RedirectToAction(nameof(Index));
             }

@@ -1,9 +1,0 @@
-C:\Users\ADMIN\source\repos\EmployeeManagementApp\EmployeeManagementDB\bin\Debug\EmployeeManagementDB.dacpac
-C:\Users\ADMIN\source\repos\EmployeeManagementApp\EmployeeManagementDB\bin\Debug\EmployeeManagementDB.dll
-C:\Users\ADMIN\source\repos\EmployeeManagementApp\EmployeeManagementDB\bin\Debug\EmployeeManagementDB.pdb
-C:\Users\ADMIN\source\repos\EmployeeManagementApp\EmployeeManagementDB\obj\Debug\Model.xml
-C:\Users\ADMIN\source\repos\EmployeeManagementApp\EmployeeManagementDB\obj\Debug\refactor.xml
-C:\Users\ADMIN\source\repos\EmployeeManagementApp\EmployeeManagementDB\obj\Debug\postdeploy.sql
-C:\Users\ADMIN\source\repos\EmployeeManagementApp\EmployeeManagementDB\obj\Debug\predeploy.sql
-C:\Users\ADMIN\source\repos\EmployeeManagementApp\EmployeeManagementDB\obj\Debug\EmployeeManagementDB.dll
-C:\Users\ADMIN\source\repos\EmployeeManagementApp\EmployeeManagementDB\obj\Debug\EmployeeManagementDB.pdb

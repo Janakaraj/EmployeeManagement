@@ -38,10 +38,10 @@ namespace EmployeeManagementApp.Controllers
         {
             try
             {
-                //var d = empRepo.GetEmployees().Last();
-                //collection.Id = d.Id + 1;
+                var d = empRepo.GetEmployees().Last();
+                collection.Id = d.Id + 1;
                 empRepo.AddEmployee(collection);
-                //ViewBag.Data = DepartmentList.GetDepartments();
+                ViewBag.Data = DepartmentList.GetDepartments();
                 return RedirectToAction("Index");
             }
             catch
