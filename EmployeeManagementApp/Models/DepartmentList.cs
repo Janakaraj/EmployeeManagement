@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Dapper;
 using System.Data.SqlClient;
 using System;
 
@@ -18,56 +19,39 @@ namespace EmployeeManagementApp.Models
         }
         public static List<Department> GetDepartments()
         {
-            
-            con.Open();
-            SqlCommand cmd = new SqlCommand("Select * from dbo.Department", con);
-            SqlDataReader reader = cmd.ExecuteReader();
+
+
+            string query = "Select * from dbo.Department";
             departmentList.Clear();
-            while (reader.Read())
+            var departments = con.Query<Department>(query);
+            foreach(Department dept in departments)
             {
                 Department department = new Department();
-                department.DepartmentId = Convert.ToInt32(reader[0]);
-                department.DepartmentName = reader[1].ToString();
+                department.DepartmentId = dept.DepartmentId;
+                department.DepartmentName = dept.DepartmentName;
                 departmentList.Add(department);
             }
-            con.Close();
             return departmentList;
         }
         public static Department AddToList(Department department)
         {
-            //departmentList.Add(department);
-            con.Open();
-            string query = "INSERT INTO dbo.Department(DepartmentName) VALUES(@Name)";
-            SqlCommand cmd = new SqlCommand(query, con);  
-            cmd.Parameters.AddWithValue("@Name", department.DepartmentName);
-            cmd.ExecuteNonQuery();
-            con.Close();
+            string query = "INSERT INTO dbo.Department(DepartmentName) VALUES("+"'"+ department.DepartmentName+"'"+")";
+            con.Execute(query);
             return department;
         }
         public static Department EditInList(int id, Department department)
         {
-            //Department departmentToEdit = departmentList.Find(x => x.DepartmentId == id);
-            //departmentToEdit.DepartmentName = department.DepartmentName;
             departmentList.Clear();
-            con.Open();
             string query = "UPDATE dbo.Department SET DepartmentName = '" + department.DepartmentName + "' WHERE DepartmentId = " + id;
-            SqlCommand cmd = new SqlCommand(query, con);
-            cmd.ExecuteNonQuery();
-            con.Close();
+            con.Execute(query);
 
             return department;
         }
         public static void DeleteInList(int id)
         {
-            //Department departmentToDelete = departmentList.Find(x => x.DepartmentId == id);
-            //departmentList.Remove(departmentToDelete);
-            //return departmentToDelete;
             departmentList.Clear();
-            con.Open();
             string query = "DELETE FROM dbo.Department WHERE DepartmentId = " + id;
-            SqlCommand cmd = new SqlCommand(query, con);
-            cmd.ExecuteNonQuery();
-            con.Close();
+            con.Execute(query);
         }
     }
 }

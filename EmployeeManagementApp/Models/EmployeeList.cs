@@ -18,7 +18,6 @@ namespace EmployeeManagementApp.Models
         public static List<Employee> GetEmployees()
         {
             employeeList.Clear();
-            SqlCommand cmd = new SqlCommand("select * from dbo.Employee inner join  dbo.Department on Employee.DepartmentId = Department.DepartmentId", con);
             var employees = con.Query<EmployeeDataList>("select * from dbo.employee inner join  dbo.department on employee.departmentid = department.departmentid");
             foreach (var emp in employees)
             {
