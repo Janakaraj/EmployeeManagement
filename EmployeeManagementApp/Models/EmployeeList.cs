@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Data.SqlClient;
-using System;
+using System;   
 namespace EmployeeManagementApp.Models
 {
     public class EmployeeList
@@ -85,13 +85,7 @@ namespace EmployeeManagementApp.Models
             SqlCommand cmd = new SqlCommand(query, con);
             cmd.ExecuteNonQuery();
             con.Close();
-            //Employee employeeToEdit = employeeList.Find(x => x.Id == id);
-            //employeeToEdit.Name = employee.Name;
-            //employeeToEdit.Surname = employee.Surname;
-            //employeeToEdit.Address = employee.Address;
-            //employeeToEdit.ContactNumber = employee.ContactNumber;
-            //employeeToEdit.Department = employee.Department;
-            //employeeToEdit.Qualification = employee.Qualification;
+            
             return employee;
         }
         public static void DeleteInList(int id)
