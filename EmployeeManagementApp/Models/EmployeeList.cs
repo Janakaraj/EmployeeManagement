@@ -8,10 +8,10 @@ namespace EmployeeManagementApp.Models
         static List<Employee> employeeList = null;
         static EmployeeList()
         {
-            employeeList = new List<Employee>()
-            {
-                new Employee(){Id=0,Name="Janak",Surname="Poojary",Address="Vadodara", ContactNumber=8160551685, Department="Development", Qualification="BE"}
-        };
+            employeeList = new List<Employee>();
+        //    {
+        //        new Employee(){Id=0,Name="Janak",Surname="Poojary",Address="Vadodara", ContactNumber=8160551685, Department="Development", Qualification="BE"}
+        //};
         }
         public static List<Employee> GetEmployees()
         {
@@ -29,7 +29,7 @@ namespace EmployeeManagementApp.Models
             employeeToEdit.Surname = employee.Surname;
             employeeToEdit.Address = employee.Address;
             employeeToEdit.ContactNumber = employee.ContactNumber;
-            employeeToEdit.Department = employee.Department;
+            employeeToEdit.DepartmentId = employee.DepartmentId;
             employeeToEdit.Qualification = employee.Qualification;
             return employee;
         }
