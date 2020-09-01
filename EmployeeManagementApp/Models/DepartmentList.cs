@@ -57,17 +57,26 @@ namespace EmployeeManagementApp.Models
 
             return department;
         }
-        public static void DeleteInList(int id)
+        public static bool DeleteInList(int id)
         {
             //Department departmentToDelete = departmentList.Find(x => x.DepartmentId == id);
             //departmentList.Remove(departmentToDelete);
             //return departmentToDelete;
             departmentList.Clear();
-            con.Open();
-            string query = "DELETE FROM dbo.Department WHERE DepartmentId = " + id;
-            SqlCommand cmd = new SqlCommand(query, con);
-            cmd.ExecuteNonQuery();
-            con.Close();
+            List<Employee> l = EmployeeList.GetEmployees().Where(e => e.DepartmentId == id).ToList();
+            if (!l.Any())
+            {
+                con.Open();
+                string query = "DELETE FROM dbo.Department WHERE DepartmentId = " + id;
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.ExecuteNonQuery();
+                con.Close();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

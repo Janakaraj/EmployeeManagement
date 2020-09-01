@@ -10,7 +10,7 @@ namespace EmployeeManagementApp.Models
         List<Department> GetDepartments();
         Department GetDepartmentById(int dId);
         Department AddDepartment(Department dept);
-        void DeleteDepartment(int dId);
+        bool DeleteDepartment(int dId);
         Department EditDepartment(int dId, Department dept);
     }
 }

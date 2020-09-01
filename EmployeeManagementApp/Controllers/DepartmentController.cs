@@ -87,13 +87,25 @@ namespace EmployeeManagementApp.Controllers
         {
             try
             {
-                deptRepo.DeleteDepartment(id);
-                return RedirectToAction(nameof(Index));
+                bool success = deptRepo.DeleteDepartment(id);
+                if (success)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    return RedirectToAction(nameof(Error));
+                }
+                
             }
             catch
             {
                 return View();
             }
+        }
+        public ActionResult Error()
+        {
+            return View();
         }
     }
 }
