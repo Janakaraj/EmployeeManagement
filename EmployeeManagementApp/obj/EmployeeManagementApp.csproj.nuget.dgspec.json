@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ADMIN\\source\\repos\\EmployeeManagementApp\\EmployeeManagementApp\\EmployeeManagementApp.csproj": {}
+    "C:\\Users\\ADMIN\\Documents\\GitHub\\EmployeeManagement\\EmployeeManagementApp\\EmployeeManagementApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ADMIN\\source\\repos\\EmployeeManagementApp\\EmployeeManagementApp\\EmployeeManagementApp.csproj": {
+    "C:\\Users\\ADMIN\\Documents\\GitHub\\EmployeeManagement\\EmployeeManagementApp\\EmployeeManagementApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ADMIN\\source\\repos\\EmployeeManagementApp\\EmployeeManagementApp\\EmployeeManagementApp.csproj",
+        "projectUniqueName": "C:\\Users\\ADMIN\\Documents\\GitHub\\EmployeeManagement\\EmployeeManagementApp\\EmployeeManagementApp.csproj",
         "projectName": "EmployeeManagementApp",
-        "projectPath": "C:\\Users\\ADMIN\\source\\repos\\EmployeeManagementApp\\EmployeeManagementApp\\EmployeeManagementApp.csproj",
+        "projectPath": "C:\\Users\\ADMIN\\Documents\\GitHub\\EmployeeManagement\\EmployeeManagementApp\\EmployeeManagementApp.csproj",
         "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ADMIN\\source\\repos\\EmployeeManagementApp\\EmployeeManagementApp\\obj\\",
+        "outputPath": "C:\\Users\\ADMIN\\Documents\\GitHub\\EmployeeManagement\\EmployeeManagementApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -38,6 +38,10 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.7, )"
+            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[3.1.7, )"
