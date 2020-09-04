@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EmployeeManagementApp.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EmployeeManagementApp.Controllers
 {
+    
     public class EmployeeController : Controller
     {
         private readonly AppDbContext _context;
@@ -19,6 +21,7 @@ namespace EmployeeManagementApp.Controllers
         }
 
         // GET: Employee
+        [Authorize(Roles = "Admin, HR, Employee")]
         public async Task<IActionResult> Index()
         {
             var appDbContext = _context.employees.Include(e => e.department);
@@ -26,6 +29,7 @@ namespace EmployeeManagementApp.Controllers
         }
 
         // GET: Employee/Details/5
+        [Authorize(Roles = "Admin, HR, Employee")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -45,6 +49,7 @@ namespace EmployeeManagementApp.Controllers
         }
 
         // GET: Employee/Create
+        [Authorize(Roles = "Admin, HR")]
         public IActionResult Create()
         {
             ViewData["DepartmentId"] = new SelectList(_context.depatments, "DepartmentId", "DepartmentName");
@@ -54,6 +59,7 @@ namespace EmployeeManagementApp.Controllers
         // POST: Employee/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin, HR")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Surname,Address,Qualification,ContactNumber,DepartmentId")] Employee employee)
@@ -68,6 +74,7 @@ namespace EmployeeManagementApp.Controllers
             return View(employee);
         }
 
+        [Authorize(Roles = "Admin, HR")]
         // GET: Employee/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -88,6 +95,7 @@ namespace EmployeeManagementApp.Controllers
         // POST: Employee/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin, HR")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Surname,Address,Qualification,ContactNumber,DepartmentId")] Employee employee)
@@ -122,6 +130,7 @@ namespace EmployeeManagementApp.Controllers
         }
 
         // GET: Employee/Delete/5
+        [Authorize(Roles = "Admin, HR")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -141,6 +150,7 @@ namespace EmployeeManagementApp.Controllers
         }
 
         // POST: Employee/Delete/5
+        [Authorize(Roles = "Admin, HR")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

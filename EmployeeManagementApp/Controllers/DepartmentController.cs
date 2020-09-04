@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EmployeeManagementApp.Models;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EmployeeManagementApp.Controllers
 {
@@ -19,12 +21,14 @@ namespace EmployeeManagementApp.Controllers
         }
 
         // GET: Department
+        [Authorize(Roles = "Admin, HR")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.depatments.ToListAsync());
         }
 
         // GET: Department/Details/5
+        [Authorize(Roles = "Admin, HR")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -43,6 +47,7 @@ namespace EmployeeManagementApp.Controllers
         }
 
         // GET: Department/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -51,6 +56,7 @@ namespace EmployeeManagementApp.Controllers
         // POST: Department/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("DepartmentId,DepartmentName")] Department department)
@@ -65,6 +71,7 @@ namespace EmployeeManagementApp.Controllers
         }
 
         // GET: Department/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -83,6 +90,7 @@ namespace EmployeeManagementApp.Controllers
         // POST: Department/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("DepartmentId,DepartmentName")] Department department)
@@ -116,6 +124,7 @@ namespace EmployeeManagementApp.Controllers
         }
 
         // GET: Department/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -134,6 +143,7 @@ namespace EmployeeManagementApp.Controllers
         }
 
         // POST: Department/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

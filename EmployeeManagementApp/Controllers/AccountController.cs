@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EmployeeManagementApp.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -74,6 +75,7 @@ namespace EmployeeManagementApp.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("index", "home");
         }
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult ListUsers()
         {
@@ -84,6 +86,7 @@ namespace EmployeeManagementApp.Controllers
             UserRoleViewModel a = new UserRoleViewModel();
             return View();
         }
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> ListUsers(UserRoleViewModel model)
         {
