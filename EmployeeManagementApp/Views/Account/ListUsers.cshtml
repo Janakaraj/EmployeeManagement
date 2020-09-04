@@ -1,0 +1,49 @@
+﻿@using EmployeeManagementApp.ViewModels;
+@model UserRoleViewModel
+
+@{
+    ViewBag.Title = "All Users";
+}
+
+<h1>All users</h1>
+
+<div class="list-group">
+    <div class="list-group-item">
+        <div class="row">
+            <div class="col-md-3">
+                <h5>User ID</h5>
+            </div>
+            <div class="col-md-3">
+                <h5>User Name</h5>
+            </div>
+            <div class="col-md-6"> Assign Role</div>
+        </div>
+    </div>
+        @foreach (var user in ViewBag.users)
+        {
+            <div class="list-group-item">
+                <div class="row">
+                    <div class="col-md-3">
+                        <p>@user.Id</p>
+                    </div>
+                    <div class="col-md-3">
+                        <p>@user.UserName</p>
+                    </div>
+                    <div class="col-md-6">
+                        <form asp-action="ListUsers" method="post">
+                            <div class="form-group">
+                                <label asp-for="RoleId" class="control-label">Select Role :</label>
+                                <select asp-for="RoleId" class="form-control" asp-items="ViewBag.roles"></select>
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="UserId" class="form-control" value="@user.Id" hidden></input>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="select" class="btn btn-warning" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+    }
+</div>

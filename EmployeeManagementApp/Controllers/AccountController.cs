@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using EmployeeManagementApp.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace EmployeeManagementApp.Controllers
@@ -13,11 +14,13 @@ namespace EmployeeManagementApp.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> rolemanager)
         {
             this._userManager = userManager;
             this._signInManager = signInManager;
+            this._roleManager = rolemanager;
         }
         [HttpGet]
         public IActionResult Register()
@@ -70,6 +73,24 @@ namespace EmployeeManagementApp.Controllers
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("index", "home");
+        }
+        [HttpGet]
+        public IActionResult ListUsers()
+        {
+            var roles = _roleManager.Roles;
+            var users = _userManager.Users;
+            ViewBag.roles = new SelectList(roles, "Id", "Name");
+            ViewBag.users = users;
+            UserRoleViewModel a = new UserRoleViewModel();
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> ListUsers(UserRoleViewModel model)
+        {
+            var user = await _userManager.FindByIdAsync(model.UserId);
+            var role = await _roleManager.FindByIdAsync(model.RoleId);
+            var result = await _userManager.AddToRoleAsync(user, role.Name);
+            return RedirectToAction("ListUsers");
         }
     }
 }
