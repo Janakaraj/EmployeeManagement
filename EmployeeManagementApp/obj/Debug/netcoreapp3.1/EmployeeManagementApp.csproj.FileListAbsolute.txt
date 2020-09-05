@@ -370,3 +370,6 @@ C:\Users\ADMIN\Documents\GitHub\EmployeeManagement\EmployeeManagementApp\obj\Deb
 C:\Users\ADMIN\Documents\GitHub\EmployeeManagement\EmployeeManagementApp\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Index.cshtml.g.cs
 C:\Users\ADMIN\Documents\GitHub\EmployeeManagement\EmployeeManagementApp\obj\Debug\netcoreapp3.1\Razor\Views\Account\ListUsers.cshtml.g.cs
 C:\Users\ADMIN\Documents\GitHub\EmployeeManagement\EmployeeManagementApp\obj\Debug\netcoreapp3.1\Razor\Views\Home\AccessDenied.cshtml.g.cs
+C:\Users\ADMIN\Documents\GitHub\EmployeeManagement\EmployeeManagementApp\obj\Debug\netcoreapp3.1\Razor\Views\Account\ResetPassword.cshtml.g.cs
+C:\Users\ADMIN\Documents\GitHub\EmployeeManagement\EmployeeManagementApp\obj\Debug\netcoreapp3.1\Razor\Views\Account\ResetPasswordConfirmation.cshtml.g.cs
+C:\Users\ADMIN\Documents\GitHub\EmployeeManagement\EmployeeManagementApp\obj\Debug\netcoreapp3.1\Razor\Views\Account\ForgotPassword.cshtml.g.cs

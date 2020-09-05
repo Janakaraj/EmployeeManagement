@@ -34,7 +34,7 @@ namespace EmployeeManagementApp
             {
                 options.AccessDeniedPath = new PathString("/Home/AccessDenied");
             });
-            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
