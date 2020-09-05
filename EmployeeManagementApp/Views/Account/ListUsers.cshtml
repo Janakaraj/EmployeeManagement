@@ -31,15 +31,17 @@
                     </div>
                     <div class="col-md-6">
                         <form asp-action="ListUsers" method="post">
-                            <div class="form-group">
-                                <label asp-for="RoleId" class="control-label">Select Role :</label>
-                                <select asp-for="RoleId" class="form-control" asp-items="ViewBag.roles"></select>
-                            </div>
-                            <div class="form-group">
-                                <input asp-for="UserId" class="form-control" value="@user.Id" hidden></input>
-                            </div>
-                            <div class="form-group">
-                                <input type="submit" value="select" class="btn btn-warning" />
+                            <div>
+                                <div class="form-group d-inline-block">
+                                    <label asp-for="RoleId" class="sr-only">Select Role :</label>
+                                    <select asp-for="RoleId" class="form-control" asp-items="ViewBag.roles"></select>
+                                </div>
+                                <div class="form-group d-inline-block">
+                                    <input asp-for="UserId" class="form-control" value="@user.Id" hidden></input>
+                                </div>
+                                <div class="form-group d-inline-block">
+                                    <input type="submit" value="select" class="btn btn-warning" />
+                                </div>
                             </div>
                         </form>
                     </div>
