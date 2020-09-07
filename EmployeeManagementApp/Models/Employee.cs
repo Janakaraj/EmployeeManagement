@@ -12,6 +12,10 @@ namespace EmployeeManagementApp.Models
     {
         public int Id { get; set; }
         [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+
+        [Required]
         [StringLength(20, ErrorMessage = "Name must be between 1 and 20 chars")]
         public string Name { get; set; }
 

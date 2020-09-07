@@ -363,7 +363,6 @@ C:\Users\ADMIN\Documents\GitHub\EmployeeManagement\EmployeeManagementApp\bin\Deb
 C:\Users\ADMIN\Documents\GitHub\EmployeeManagement\EmployeeManagementApp\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Stores.dll
 C:\Users\ADMIN\Documents\GitHub\EmployeeManagement\EmployeeManagementApp\obj\Debug\netcoreapp3.1\EmployeeManagementApp.csproj.CoreCompileInputs.cache
 C:\Users\ADMIN\Documents\GitHub\EmployeeManagement\EmployeeManagementApp\obj\Debug\netcoreapp3.1\EmployeeManagementApp.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\ADMIN\Documents\GitHub\EmployeeManagement\EmployeeManagementApp\obj\Debug\netcoreapp3.1\Razor\Views\Account\Register.cshtml.g.cs
 C:\Users\ADMIN\Documents\GitHub\EmployeeManagement\EmployeeManagementApp\obj\Debug\netcoreapp3.1\Razor\Views\Account\Login.cshtml.g.cs
 C:\Users\ADMIN\Documents\GitHub\EmployeeManagement\EmployeeManagementApp\obj\Debug\netcoreapp3.1\Razor\Views\Admin\CreateRole.cshtml.g.cs
 C:\Users\ADMIN\Documents\GitHub\EmployeeManagement\EmployeeManagementApp\obj\Debug\netcoreapp3.1\Razor\Views\Admin\ListRoles.cshtml.g.cs

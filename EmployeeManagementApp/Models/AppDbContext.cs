@@ -13,6 +13,7 @@ namespace EmployeeManagementApp.Models
         {
 
         }
+
         public DbSet<Employee> employees { get; set; }
         public DbSet<Department> depatments { get; set; }
     }
