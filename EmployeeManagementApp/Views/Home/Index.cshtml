@@ -1,4 +1,4 @@
-﻿@inject SignInManager<IdentityUser> signInManager;
+﻿@inject SignInManager<IdentityUser> signInManager
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -7,6 +7,15 @@
     @if (signInManager.IsSignedIn(User))
     {
         <h1 style="margin-top:7rem;">Welcome, <span class="text-success">@User.Identity.Name</span></h1>
+        <p>
+            You are logged in as
+            @if (User.IsInRole("Employee"))
+            {<span class="text-danger"> Employee</span>}
+            @if(User.IsInRole("HR"))
+            {<span class="text-danger"> HR</span>}
+            @if(User.IsInRole("Admin"))
+            {<span class="text-danger"> Admin</span>}
+        </p>
     }
     else
     {
