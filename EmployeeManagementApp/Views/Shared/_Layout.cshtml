@@ -38,7 +38,7 @@
                                 </p>
                             </li>
                             <li class="nav-item">
-                                @{ 
+                                @{
                                     var id = context.employees.Where(e => e.Email == User.Identity.Name).First().Id;
                                 }
                                 <a class="nav-link  text-light" asp-controller="Employee" asp-action="Details" asp-route-id="@id">View Profile</a>
@@ -76,6 +76,7 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/signalr/dist/browser/signalr.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>

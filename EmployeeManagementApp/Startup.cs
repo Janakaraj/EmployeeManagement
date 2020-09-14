@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using EmployeeManagementApp.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
+using EmployeeManagementApp.Hubs;
 
 namespace EmployeeManagementApp
 {
@@ -35,6 +36,7 @@ namespace EmployeeManagementApp
                 options.AccessDeniedPath = new PathString("/Home/AccessDenied");
             });
             services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,7 +61,10 @@ RoleManager<IdentityRole> roleManager)
             app.UseAuthentication();
             DataInitializer.SeedData(userManager, roleManager);
             app.UseAuthorization();
-
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<NotificationHub>("/NotificationHub");
+            });
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

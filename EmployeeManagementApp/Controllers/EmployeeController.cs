@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using EmployeeManagementApp.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.SignalR;
+using EmployeeManagementApp.Hubs;
 
 namespace EmployeeManagementApp.Controllers
 {
@@ -18,13 +20,15 @@ namespace EmployeeManagementApp.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IHubContext<NotificationHub> _notificationHubContext;
 
-        public EmployeeController(AppDbContext context, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager)
+        public EmployeeController(AppDbContext context, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager, IHubContext<NotificationHub> notificationHubContext)
         {
             this._context = context;
             this._userManager = userManager;
             this._signInManager = signInManager;
             this._roleManager = roleManager;
+            this._notificationHubContext = notificationHubContext;
         }
 
         // GET: Employee
@@ -93,7 +97,11 @@ namespace EmployeeManagementApp.Controllers
                 {
                     await _userManager.AddToRoleAsync(user, "Employee");
                     await _context.SaveChangesAsync();
+                    var name = employee.Name;
+                    var surname = employee.Surname;
+                    //await this._notificationHubContext.Clients.All.SendAsync("SendMessage", name, surname);
                     return RedirectToAction(nameof(Index));
+                    //return View();
                 }
                 foreach (var error in result.Errors)
                 {
