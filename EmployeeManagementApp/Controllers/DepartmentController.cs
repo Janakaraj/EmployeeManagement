@@ -8,16 +8,20 @@ using Microsoft.EntityFrameworkCore;
 using EmployeeManagementApp.Models;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.SignalR;
+using EmployeeManagementApp.Hubs;
 
 namespace EmployeeManagementApp.Controllers
 {
     public class DepartmentController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly IHubContext<NotificationHub> _notificationHubContext;
 
-        public DepartmentController(AppDbContext context)
+        public DepartmentController(AppDbContext context, IHubContext<NotificationHub> notificationHubContext)
         {
-            _context = context;
+            this._context = context;
+            this._notificationHubContext = notificationHubContext;
         }
 
         // GET: Department
@@ -65,6 +69,9 @@ namespace EmployeeManagementApp.Controllers
             {
                 _context.Add(department);
                 await _context.SaveChangesAsync();
+                var groups = "HR";
+                var name = department.DepartmentName;
+                await this._notificationHubContext.Clients.Group(groups).SendAsync("RecieveAddDepartmentMessage", name);
                 return RedirectToAction(nameof(Index));
             }
             return View(department);

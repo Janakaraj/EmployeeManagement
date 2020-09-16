@@ -2,17 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EmployeeManagementApp.Models;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagementApp.Hubs
 {
     public class NotificationHub:Hub
     {
+        private readonly AppDbContext _context;
+        public NotificationHub(AppDbContext context)
+        {
+            this._context = context;
 
+        }
         public async Task SendAddEmployeeMessage(string name, string surname)
         {
-            var groupName = "Employee";
-            await Clients.Group(groupName).SendAsync("RecieveAddEmployeeMessage",name,surname);
+            string dept = _context.employees.Include(e => e.department).Where(e => e.Email == this.Context.User.Identity.Name).First().department.DepartmentName;
+            var grpName = "Employee" + dept;
+            await Clients.Group(grpName).SendAsync("RecieveAddEmployeeMessage",name,surname);
         }
         public async Task SendEditProfileMessage(string name)
         {
@@ -37,7 +45,10 @@ namespace EmployeeManagementApp.Hubs
             }
             else if (this.Context.User.IsInRole("Employee"))
             {
-                await this.Groups.AddToGroupAsync(this.Context.ConnectionId, "Employee");
+                string dept = _context.employees.Include(e => e.department).Where(e => e.Email == this.Context.User.Identity.Name).First().department.DepartmentName;
+                var grpName = "Employee" + dept;
+                await this.Groups.AddToGroupAsync(this.Context.ConnectionId, grpName);
+                
             }
             await base.OnConnectedAsync();
         }

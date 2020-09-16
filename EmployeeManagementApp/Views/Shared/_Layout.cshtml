@@ -44,6 +44,17 @@
                                 <a class="nav-link  text-light" asp-controller="Employee" asp-action="Details" asp-route-id="@id">View Profile</a>
                             </li>
                             <li class="nav-item">
+                                <div class="dropdown">
+                                    <a class="nav-link text-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Notifications
+                                        <span id="notiBadge" style="visibility: hidden;position: absolute;top: 10px;right: 20px;height: 10px;width: 10px;background-color: red;border-radius: 50%;display: inline-block;"></span>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="notificationList">
+                                    </div>
+                                </div>
+ 
+                            </li>
+                            <li class="nav-item">
                                 <form method="post" asp-action="logout" asp-controller="account">
                                     <button type="submit" class="btn btn-outline-success text-light" style="margin-left:5px;margin-right:5px">
                                         Logout

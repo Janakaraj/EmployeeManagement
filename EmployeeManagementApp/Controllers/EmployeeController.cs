@@ -99,7 +99,9 @@ namespace EmployeeManagementApp.Controllers
                     await _context.SaveChangesAsync();
                     var name = employee.Name;
                     var surname = employee.Surname;
-                    //await this._notificationHubContext.Clients.All.SendAsync("SendMessage", name, surname);
+                    var dept = _context.depatments.Where(d => d.DepartmentId == employee.DepartmentId).First().DepartmentName;
+                    var grpName = "Employee" + dept;
+                    await this._notificationHubContext.Clients.Group(grpName).SendAsync("RecieveAddEmployeeMessage", name, surname);
                     return RedirectToAction(nameof(Index));
                     //return View();
                 }
@@ -161,6 +163,10 @@ namespace EmployeeManagementApp.Controllers
                         throw;
                     }
                 }
+                var name = employee.Name;
+                var group1 = "Admin";
+                var group2 = "HR";
+                await this._notificationHubContext.Clients.Groups(group1, group2).SendAsync("RecieveEditProfileMessage", name);
                 return RedirectToAction(nameof(Index));
             }
             ViewData["DepartmentId"] = new SelectList(_context.depatments, "DepartmentId", "DepartmentName", employee.DepartmentId);
