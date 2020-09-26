@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EmployeeManagementApp.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace EmployeeManagementApp.Controllers
 {
@@ -14,17 +15,23 @@ namespace EmployeeManagementApp.Controllers
     public class EmployeesApiController : ControllerBase
     {
         private readonly AppDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public EmployeesApiController(AppDbContext context)
+        public EmployeesApiController(AppDbContext context, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager)
         {
-            _context = context;
+            this._context = context;
+            this._userManager = userManager;
+            this._signInManager = signInManager;
+            this._roleManager = roleManager;
         }
 
         // GET: api/EmployeesApi
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Employee>>> Getemployees()
         {
-            return await _context.employees.ToListAsync();
+            return await _context.employees.Include(e => e.department).ToListAsync();
         }
 
         // GET: api/EmployeesApi/5
@@ -32,6 +39,8 @@ namespace EmployeeManagementApp.Controllers
         public async Task<ActionResult<Employee>> GetEmployee(int id)
         {
             var employee = await _context.employees.FindAsync(id);
+            var department = await _context.depatments.FindAsync(employee.DepartmentId);
+            employee.department = department;
 
             if (employee == null)
             {
@@ -79,9 +88,19 @@ namespace EmployeeManagementApp.Controllers
         [HttpPost]
         public async Task<ActionResult<Employee>> PostEmployee(Employee employee)
         {
-            _context.employees.Add(employee);
-            await _context.SaveChangesAsync();
+            _context.employees.Add(employee); 
+            string password = employee.Name.ToString() + "@12345A";
+            var userName = employee.Email;
+            var userEmail = employee.Email;
+            var role = await _roleManager.RoleExistsAsync("Employee");
+            var user = new IdentityUser { UserName = userName, Email = userEmail };
+            var result = await _userManager.CreateAsync(user, password);
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, "Employee");
 
+                await _context.SaveChangesAsync();
+            }
             return CreatedAtAction("GetEmployee", new { id = employee.Id }, employee);
         }
 
@@ -94,7 +113,8 @@ namespace EmployeeManagementApp.Controllers
             {
                 return NotFound();
             }
-
+            var user = await _userManager.FindByEmailAsync(employee.Email);
+            await _userManager.DeleteAsync(user);
             _context.employees.Remove(employee);
             await _context.SaveChangesAsync();
 
