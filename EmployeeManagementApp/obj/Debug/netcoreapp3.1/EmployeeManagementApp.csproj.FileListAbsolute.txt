@@ -370,6 +370,7 @@ C:\Users\ADMIN\Documents\GitHub\EmployeeManagement\EmployeeManagementApp\obj\Deb
 C:\Users\ADMIN\Documents\GitHub\EmployeeManagement\EmployeeManagementApp\obj\Debug\netcoreapp3.1\Razor\Views\Account\ResetPassword.cshtml.g.cs
 C:\Users\ADMIN\Documents\GitHub\EmployeeManagement\EmployeeManagementApp\obj\Debug\netcoreapp3.1\Razor\Views\Account\ResetPasswordConfirmation.cshtml.g.cs
 C:\Users\ADMIN\Documents\GitHub\EmployeeManagement\EmployeeManagementApp\obj\Debug\netcoreapp3.1\Razor\Views\Account\ForgotPassword.cshtml.g.cs
+C:\Users\ADMIN\Documents\GitHub\EmployeeManagement\EmployeeManagementApp\bin\Debug\netcoreapp3.1\libman.json
+C:\Users\ADMIN\Documents\GitHub\EmployeeManagement\EmployeeManagementApp\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\ADMIN\Documents\GitHub\EmployeeManagement\EmployeeManagementApp\obj\Debug\netcoreapp3.1\EmployeeManagementApp.csproj.CoreCompileInputs.cache
 C:\Users\ADMIN\Documents\GitHub\EmployeeManagement\EmployeeManagementApp\obj\Debug\netcoreapp3.1\EmployeeManagementApp.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\ADMIN\Documents\GitHub\EmployeeManagement\EmployeeManagementApp\bin\Debug\netcoreapp3.1\libman.json

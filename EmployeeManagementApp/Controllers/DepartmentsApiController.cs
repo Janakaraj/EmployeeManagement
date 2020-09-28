@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EmployeeManagementApp.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EmployeeManagementApp.Controllers
 {
+    [Authorize(Roles = "Employee")]
     [Route("api/[controller]")]
     [ApiController]
     public class DepartmentsApiController : ControllerBase
