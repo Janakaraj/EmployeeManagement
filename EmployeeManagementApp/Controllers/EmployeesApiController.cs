@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EmployeeManagementApp.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EmployeeManagementApp.Controllers
 {
@@ -28,13 +29,25 @@ namespace EmployeeManagementApp.Controllers
         }
 
         // GET: api/EmployeesApi
+        [Authorize(Roles = "Admin, HR, Employee")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Employee>>> Getemployees()
         {
+            if (User.IsInRole("Admin") || User.IsInRole("HR"))
+            {
+                return await _context.employees.Include(e => e.department).ToListAsync();
+            }
+            else if(User.IsInRole("Employee"))
+            {
+                var dept = _context.employees.Include(e => e.department).Where(e => e.Email == User.FindFirst("name").Value).First().department.DepartmentName;
+                var sameDeptEmployee = _context.employees.Include(e => e.department).Where(e => e.department.DepartmentName == dept);
+                return await sameDeptEmployee.ToListAsync();
+            }
             return await _context.employees.Include(e => e.department).ToListAsync();
         }
 
         // GET: api/EmployeesApi/5
+        [Authorize(Roles = "Admin, HR, Employee")]
         [HttpGet("{id}")]
         public async Task<ActionResult<Employee>> GetEmployee(int id)
         {
@@ -53,6 +66,7 @@ namespace EmployeeManagementApp.Controllers
         // PUT: api/EmployeesApi/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [Authorize(Roles = "Admin, HR, Employee")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutEmployee(int id, Employee employee)
         {
@@ -85,6 +99,7 @@ namespace EmployeeManagementApp.Controllers
         // POST: api/EmployeesApi
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [Authorize(Roles = "Admin, HR")]
         [HttpPost]
         public async Task<ActionResult<Employee>> PostEmployee(Employee employee)
         {
@@ -105,6 +120,7 @@ namespace EmployeeManagementApp.Controllers
         }
 
         // DELETE: api/EmployeesApi/5
+        [Authorize(Roles = "Admin, HR")]
         [HttpDelete("{id}")]
         public async Task<ActionResult<Employee>> DeleteEmployee(int id)
         {

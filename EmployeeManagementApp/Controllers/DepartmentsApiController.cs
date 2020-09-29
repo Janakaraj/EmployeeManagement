@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace EmployeeManagementApp.Controllers
 {
-    [Authorize(Roles = "Employee")]
     [Route("api/[controller]")]
     [ApiController]
     public class DepartmentsApiController : ControllerBase
@@ -22,7 +21,9 @@ namespace EmployeeManagementApp.Controllers
             _context = context;
         }
 
+
         // GET: api/DepartmentsApi
+        [Authorize(Roles = "Admin, HR")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Department>>> Getdepatments()
         {
@@ -30,6 +31,7 @@ namespace EmployeeManagementApp.Controllers
         }
 
         // GET: api/DepartmentsApi/5
+        [Authorize(Roles = "Admin, HR")]
         [HttpGet("{id}")]
         public async Task<ActionResult<Department>> GetDepartment(int id)
         {
@@ -46,6 +48,7 @@ namespace EmployeeManagementApp.Controllers
         // PUT: api/DepartmentsApi/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutDepartment(int id, Department department)
         {
@@ -69,7 +72,7 @@ namespace EmployeeManagementApp.Controllers
                 else
                 {
                     throw;
-                }
+                }   
             }
 
             return NoContent();
@@ -78,6 +81,7 @@ namespace EmployeeManagementApp.Controllers
         // POST: api/DepartmentsApi
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<Department>> PostDepartment(Department department)
         {
@@ -88,6 +92,7 @@ namespace EmployeeManagementApp.Controllers
         }
 
         // DELETE: api/DepartmentsApi/5
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<ActionResult<Department>> DeleteDepartment(int id)
         {
