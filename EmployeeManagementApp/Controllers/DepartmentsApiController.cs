@@ -23,7 +23,7 @@ namespace EmployeeManagementApp.Controllers
 
 
         // GET: api/DepartmentsApi
-        [Authorize(Roles = "Admin, HR")]
+        [Authorize(Roles = "Admin, HR, Employee")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Department>>> Getdepatments()
         {
