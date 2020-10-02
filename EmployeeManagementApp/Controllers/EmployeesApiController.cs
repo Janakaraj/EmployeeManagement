@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using EmployeeManagementApp.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.SignalR;
+using EmployeeManagementApp.Hubs;
 
 namespace EmployeeManagementApp.Controllers
 {
@@ -19,13 +21,15 @@ namespace EmployeeManagementApp.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IHubContext<NotificationHub> _notificationHubContext;
 
-        public EmployeesApiController(AppDbContext context, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager)
+        public EmployeesApiController(AppDbContext context, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager, IHubContext<NotificationHub> notificationHubContext)
         {
             this._context = context;
             this._userManager = userManager;
             this._signInManager = signInManager;
             this._roleManager = roleManager;
+            this._notificationHubContext = notificationHubContext;
         }
 
         // GET: api/EmployeesApi
@@ -80,6 +84,7 @@ namespace EmployeeManagementApp.Controllers
             try
             {
                 await _context.SaveChangesAsync();
+                await this._notificationHubContext.Clients.All.SendAsync("sendEditProfileMessage", employee.Name);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -115,6 +120,12 @@ namespace EmployeeManagementApp.Controllers
                 await _userManager.AddToRoleAsync(user, "Employee");
 
                 await _context.SaveChangesAsync();
+                var name = employee.Name;
+                var surname = employee.Surname;
+                var dept = _context.depatments.Where(d => d.DepartmentId == employee.DepartmentId).First().DepartmentName;
+                var grpName = "Employee" + dept;
+                await this._notificationHubContext.Clients.All.SendAsync("sendAddEmployeeMessage", name, surname);
+                await this._notificationHubContext.Clients.All.SendAsync("send","hello from the server");
             }
             return CreatedAtAction("GetEmployee", new { id = employee.Id }, employee);
         }

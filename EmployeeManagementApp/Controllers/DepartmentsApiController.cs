@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EmployeeManagementApp.Models;
 using Microsoft.AspNetCore.Authorization;
+using EmployeeManagementApp.Hubs;
+using Microsoft.AspNetCore.SignalR;
 
 namespace EmployeeManagementApp.Controllers
 {
@@ -15,10 +17,12 @@ namespace EmployeeManagementApp.Controllers
     public class DepartmentsApiController : ControllerBase
     {
         private readonly AppDbContext _context;
+        private readonly IHubContext<NotificationHub> _notificationHubContext;
 
-        public DepartmentsApiController(AppDbContext context)
+        public DepartmentsApiController(AppDbContext context, IHubContext<NotificationHub> notificationHubContext)
         {
             _context = context;
+            this._notificationHubContext = notificationHubContext;
         }
 
 
@@ -87,7 +91,10 @@ namespace EmployeeManagementApp.Controllers
         {
             _context.depatments.Add(department);
             await _context.SaveChangesAsync();
-
+            var groups = "HR";
+            var name = department.DepartmentName;
+            //await this._notificationHubContext.Clients.Group(groups).SendAsync("sendAddDepartmentMessage", name);
+            await this._notificationHubContext.Clients.All.SendAsync("sendAddDepartmentMessage", name);
             return CreatedAtAction("GetDepartment", new { id = department.DepartmentId }, department);
         }
 

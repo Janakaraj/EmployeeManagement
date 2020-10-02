@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 
 namespace EmployeeManagementApp
 {
@@ -39,6 +40,20 @@ namespace EmployeeManagementApp
             {
                 options.AccessDeniedPath = new PathString("/Home/AccessDenied");
             });
+            var corsBuilder = new CorsPolicyBuilder();
+            //corsBuilder.AllowAnyOrigin(); // For anyone access.
+            corsBuilder.WithOrigins(new[] { "http://localhost:4200" }); // for a specific url. Don't add a forward slash on the end!
+            corsBuilder.AllowAnyHeader();
+            corsBuilder.AllowCredentials();
+            corsBuilder.AllowAnyMethod();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("SiteCorsPolicy", corsBuilder.Build());
+            });
+            services.AddSignalR(options =>
+            {
+                options.EnableDetailedErrors = true;
+            });
             services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
             services.AddAuthentication(options =>
             {
@@ -57,6 +72,7 @@ namespace EmployeeManagementApp
                     ValidIssuer = Configuration["JWT:ValidIssuer"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
                 };
+
             });
             services.AddSignalR();
         }
@@ -75,10 +91,11 @@ RoleManager<IdentityRole> roleManager)
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseCors(x => x
-           .AllowAnyOrigin()
-           .AllowAnyMethod()
-           .AllowAnyHeader());
+            app.UseCors("SiteCorsPolicy");
+            // app.UseCors(x => x
+            //.AllowAnyOrigin()
+            //.AllowAnyMethod()
+            //.AllowAnyHeader());
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -87,15 +104,16 @@ RoleManager<IdentityRole> roleManager)
             app.UseAuthentication();
             DataInitializer.SeedData(userManager, roleManager);
             app.UseAuthorization();
-            app.UseSignalR(routes =>
-            {
-                routes.MapHub<NotificationHub>("/NotificationHub");
-            });
+            //app.UseSignalR(routes =>
+            //{
+            //    routes.MapHub<NotificationHub>("/NotificationHub");
+            //});
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapHub<NotificationHub>("/NotificationHub");
             });
         }
     }
