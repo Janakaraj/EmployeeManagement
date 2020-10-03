@@ -29,6 +29,30 @@ namespace EmployeeManagementApp.Controllers
             _configuration = configuration;
         }
         [HttpPost]
+        [Route("forgotPassword")]
+        public async Task<IActionResult> ForgotPassword(ResetPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await userManager.FindByEmailAsync(model.Email);
+                // If the user is found AND Email is confirmed
+                if (user != null)
+                {
+                    // Generate the reset password token
+                    var token = await userManager.GeneratePasswordResetTokenAsync(user);
+
+                    var result = await userManager.ResetPasswordAsync(user,token, model.Password);
+                    if (result.Succeeded)
+                    {
+                        return Ok();
+                    }
+                    return StatusCode(500);
+                }
+                return NotFound();
+            }
+        return BadRequest();
+        }
+        [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginViewModel model)
         {
