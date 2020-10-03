@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using EmployeeManagementApp.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagementApp.Hubs
@@ -21,10 +18,6 @@ namespace EmployeeManagementApp.Hubs
             this._context = context;
             this.userManager = userManager;
 
-        }
-        public Task send(string msg)
-        {
-            return Clients.All.SendAsync("send", msg);
         }
         public async Task sendAddEmployeeMessage(string name, string surname)
         {
@@ -45,7 +38,6 @@ namespace EmployeeManagementApp.Hubs
         }
         public override async Task OnConnectedAsync()
         {
-            await Clients.Caller.SendAsync("send", "hello caller");
             if (this.Context.GetHttpContext().User.IsInRole("Admin"))
             {
                 await this.Groups.AddToGroupAsync(this.Context.ConnectionId, "Admin");

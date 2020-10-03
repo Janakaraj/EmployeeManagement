@@ -125,7 +125,6 @@ namespace EmployeeManagementApp.Controllers
                 var dept = _context.depatments.Where(d => d.DepartmentId == employee.DepartmentId).First().DepartmentName;
                 var grpName = "Employee" + dept;
                 await this._notificationHubContext.Clients.All.SendAsync("sendAddEmployeeMessage", name, surname);
-                await this._notificationHubContext.Clients.All.SendAsync("send","hello from the server");
             }
             return CreatedAtAction("GetEmployee", new { id = employee.Id }, employee);
         }
