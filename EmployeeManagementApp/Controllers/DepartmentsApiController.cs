@@ -9,6 +9,7 @@ using EmployeeManagementApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using EmployeeManagementApp.Hubs;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.AspNetCore.Identity;
 
 namespace EmployeeManagementApp.Controllers
 {
@@ -17,11 +18,13 @@ namespace EmployeeManagementApp.Controllers
     public class DepartmentsApiController : ControllerBase
     {
         private readonly AppDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
         private readonly IHubContext<NotificationHub> _notificationHubContext;
 
-        public DepartmentsApiController(AppDbContext context, IHubContext<NotificationHub> notificationHubContext)
+        public DepartmentsApiController(AppDbContext context, UserManager<IdentityUser> userManager, IHubContext<NotificationHub> notificationHubContext)
         {
             _context = context;
+            this._userManager = userManager;
             this._notificationHubContext = notificationHubContext;
         }
 
@@ -107,6 +110,13 @@ namespace EmployeeManagementApp.Controllers
             if (department == null)
             {
                 return NotFound();
+            }
+            var toDeleteEmailList = _context.employees.Where(e => e.DepartmentId == id).ToList();
+            foreach( var u in toDeleteEmailList)
+            {
+                var user = await _userManager.FindByEmailAsync(u.Email);
+                await _userManager.DeleteAsync(user);
+                _context.employees.Remove(u);
             }
 
             _context.depatments.Remove(department);
