@@ -96,8 +96,8 @@ namespace EmployeeManagementApp.Controllers
             await _context.SaveChangesAsync();
             var groups = "HR";
             var name = department.DepartmentName;
-            //await this._notificationHubContext.Clients.Group(groups).SendAsync("sendAddDepartmentMessage", name);
-            await this._notificationHubContext.Clients.All.SendAsync("sendAddDepartmentMessage", name);
+            await this._notificationHubContext.Clients.Group(groups).SendAsync("sendAddDepartmentMessage", name);
+            //await this._notificationHubContext.Clients.All.SendAsync("sendAddDepartmentMessage", name);
             return CreatedAtAction("GetDepartment", new { id = department.DepartmentId }, department);
         }
 

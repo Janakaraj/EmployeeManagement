@@ -84,7 +84,9 @@ namespace EmployeeManagementApp.Controllers
             try
             {
                 await _context.SaveChangesAsync();
-                await this._notificationHubContext.Clients.All.SendAsync("sendEditProfileMessage", employee.Name);
+                var group1 = "Admin";
+                var group2 = "HR";
+                await this._notificationHubContext.Clients.Groups(group1, group2).SendAsync("sendEditProfileMessage", employee.Name);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -124,7 +126,7 @@ namespace EmployeeManagementApp.Controllers
                 var surname = employee.Surname;
                 var dept = _context.depatments.Where(d => d.DepartmentId == employee.DepartmentId).First().DepartmentName;
                 var grpName = "Employee" + dept;
-                await this._notificationHubContext.Clients.All.SendAsync("sendAddEmployeeMessage", name, surname);
+                await this._notificationHubContext.Clients.Group(grpName).SendAsync("sendAddEmployeeMessage", name, surname);
             }
             return CreatedAtAction("GetEmployee", new { id = employee.Id }, employee);
         }

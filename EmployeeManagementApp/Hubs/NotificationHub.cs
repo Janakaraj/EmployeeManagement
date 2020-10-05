@@ -19,34 +19,17 @@ namespace EmployeeManagementApp.Hubs
             this.userManager = userManager;
 
         }
-        public async Task sendAddEmployeeMessage(string name, string surname)
-        {
-            string dept = _context.employees.Include(e => e.department).Where(e => e.Email == this.Context.User.Identity.Name).First().department.DepartmentName;
-            var grpName = "Employee" + dept;
-            await Clients.All.SendAsync("sendAddEmployeeMessage",name,grpName);
-        }
-        public async Task sendEditProfileMessage(string name)
-        {
-            var group1 = "Admin";
-            var group2 = "HR";
-            await Clients.Groups(group1, group2).SendAsync("sendEditProfileMessage", name);
-        }
-        public async Task sendAddDepartmentMessage(string name)
-        {
-            var groups = "HR";
-            await Clients.All.SendAsync("sendAddDepartmentMessage", this.Context.User);
-        }
         public override async Task OnConnectedAsync()
         {
-            if (this.Context.GetHttpContext().User.IsInRole("Admin"))
+            if (this.Context.User.IsInRole("Admin"))
             {
                 await this.Groups.AddToGroupAsync(this.Context.ConnectionId, "Admin");
             }
-            else if (this.Context.GetHttpContext().User.IsInRole("HR"))
+            else if (this.Context.User.IsInRole("HR"))
             {
                 await this.Groups.AddToGroupAsync(this.Context.ConnectionId, "HR");
             }
-            else if (this.Context.User.FindFirst("role")?.Value == "Employee")
+            else if (this.Context.User.IsInRole("Employee"))
             {
                 string dept = _context.employees.Include(e => e.department).Where(e => e.Email == this.Context.User.Identity.Name).First().department.DepartmentName;
                 var grpName = "Employee" + dept;

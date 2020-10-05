@@ -64,6 +64,7 @@ namespace EmployeeManagementApp.Controllers
                 var authClaims = new List<Claim>
                 {
                     new Claim("name", user.UserName),
+                    new Claim(ClaimTypes.Name, user.UserName),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 };
 
